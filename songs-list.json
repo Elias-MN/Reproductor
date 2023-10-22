@@ -1,0 +1,19 @@
+{
+  "songs": [
+    {
+      "title": "Canción 1",
+      "image": "./images/cancion1.jpg",
+      "audio": "./audios/Aplausos.mp3"
+    },
+    {
+      "title": "Canción 2",
+      "image": "./images/cancion2.jpg",
+      "audio": "./audios/Booo.mp3"
+    },
+    {
+      "title": "Canción 3",
+      "image": "./images/cancion3.jpg",
+      "audio": "./audios/Victoria.mp3"
+    }
+  ]
+}

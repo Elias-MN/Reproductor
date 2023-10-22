@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="./node_modules/atropos/atropos.css" />
+  <script src="./node_modules/atropos/atropos.min.js"></script>
+  <script type="module" src="./script.js" defer></script>
+  <script type="module" src="./song.js" defer></script>
+
+  <title>Reproductor de música</title>
+</head>
+
+<body>
+  <div id="my-atropos" class="atropos">
+    <div class="atropos-scale">
+      <div class="atropos-rotate">
+        <div class="atropos-inner">
+          <div id="music-player">
+            <h1 class="text-over" id="title-song" data-atropos-offset="5"></h1>
+            <img id="img-song" src="" alt="Imagen canción" data-atropos-offset="-2">
+            <input id="song-duration" type="range" min="0" max="100">
+            <div id="buttons-music-player">
+              <div class="button" id="button-repeat">
+                <i class='bx bx-repeat'></i>
+              </div>
+              <div class="button" id="button-previous">
+                <i class='bx bx-skip-previous'></i>
+              </div>
+              <div class="button" id="button-play">
+                <i class='bx bx-play'></i>
+              </div>
+              <div class="button" id="button-pause">
+                <i class='bx bx-pause'></i>
+              </div>
+              <div class="button" id="button-next">
+                <i class='bx bx-skip-next'></i>
+              </div>
+              <div class="button" id="button-shuffle">
+                <i class='bx bx-shuffle'></i>
+              </div>
+            </div>
+            <div id="music-list">
+
+            </div>
+          </div>
+        </div>
+        <span class="box-top"></span>
+        <span class="box-bottom"></span>
+        <span class="box-left"></span>
+        <span class="box-right"></span>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
