@@ -41,31 +41,47 @@ let currentSong;
 let audio = new Audio();
 let repeatSong = false;
 let shuffleSong = false;
-audio.volume = 0.2;
 let totalDuration;
+
 inputSongDuration.value = 0;
+audio.volume = 0.5;
+Atropos({
+  el: "#my-atropos",
+  rotateXMax: 10,
+  rotateYMax: 30,
+  shadow: true,
+  shadowOffset: 75,
+  shadowScale: 0.9
+});
+
+// Gestión del listado de canciones
+
+songsJson.songs.forEach(song => {
+  let songElement = document.createElement("div");
+  songElement.classList.add('song');
+  let songActiveElement = document.createElement("i");
+  songActiveElement.classList.toggle('bx');
+  songActiveElement.classList.toggle('bxs-circle');
+  songElement.appendChild(songActiveElement);
+  let songTitleElement = document.createElement("p");
+  songTitleElement.innerText = song.title;
+  songElement.appendChild(songTitleElement);
+  songElement.addEventListener('click', () => {
+    setCurrentSong(song.id);
+    playAudio();
+  });
+  musicList.appendChild(songElement);
+  let newSong = new Song(song.id, song.title, song.image, song.audio);
+  songsList.push(newSong);
+});
+
+// Gestión de la barra de duración de la canción
 
 inputSongDuration.addEventListener('change', () => {
   let newTime = getTotalSongDuration();
   audio.currentTime = newTime;
   inputSongDuration.value = newTime;
 });
-
-audio.addEventListener('ended', () => {
-  setTimeout(() => {
-    if (audio.loop === false) {
-      nextSong();
-    }
-  }, 1000);
-});
-
-function getPercentageSongDuration() {
-  return Math.floor((audio.currentTime * 100) / totalDuration);
-}
-
-function getTotalSongDuration() {
-  return (inputSongDuration.value * totalDuration) / 100;
-}
 
 audio.addEventListener('durationchange', () => {
   inputSongDuration.value = 0;
@@ -76,15 +92,17 @@ audio.addEventListener('timeupdate', () => {
   inputSongDuration.value = getPercentageSongDuration();
 });
 
+// Gestión del final de las canciones
 
-Atropos({
-  el: "#my-atropos",
-  rotateXMax: 10,
-  rotateYMax: 30,
-  shadow: true,
-  shadowOffset: 75,
-  shadowScale: 0.9
+audio.addEventListener('ended', () => {
+  setTimeout(() => {
+    if (audio.loop === false) {
+      nextSong();
+    }
+  }, 1000);
 });
+
+// Gestión de los botones del reproductor
 
 buttonRepeat.addEventListener('click', () => {
   if (audio.loop === false) {
@@ -122,26 +140,10 @@ buttonPlay.addEventListener('click', () => {
   audio.play();
 });
 
-songsJson.songs.forEach(song => {
-  let songElement = document.createElement("div");
-  songElement.classList.add('song');
-  let songActiveElement = document.createElement("i");
-  songActiveElement.classList.toggle('bx');
-  songActiveElement.classList.toggle('bxs-circle');
-  songElement.appendChild(songActiveElement);
-  let songTitleElement = document.createElement("p");
-  songTitleElement.innerText = song.title;
-  songElement.appendChild(songTitleElement);
-  songElement.addEventListener('click', () => {
-    setCurrentSong(song.id);
-    playAudio();
-  });
-  musicList.appendChild(songElement);
-  let newSong = new Song(song.id, song.title, song.image, song.audio);
-  songsList.push(newSong);
-});
-
+// Cargar la primera canción por defecto
 setCurrentSong(currentIdSong);
+
+// Funciones
 
 function setCurrentSong(idSong) {
   currentSong = getSongById(idSong);
@@ -189,3 +191,10 @@ function nextSong() {
   playAudio();
 }
 
+function getPercentageSongDuration() {
+  return Math.floor((audio.currentTime * 100) / totalDuration);
+}
+
+function getTotalSongDuration() {
+  return (inputSongDuration.value * totalDuration) / 100;
+}

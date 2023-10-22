@@ -1,4 +1,5 @@
 export class Song {
+  id;
   title;
   image;
   source;
@@ -10,6 +11,7 @@ export class Song {
     this.source = source;
   }
 
+  /*
   playSong() {
     this.audio.play();
   }
@@ -34,5 +36,5 @@ export class Song {
   getDuration() {
     return this.audio.duration;
   }
-
+ */
 }
